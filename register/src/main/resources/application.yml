@@ -1,0 +1,11 @@
+quarkus:
+  datasource:
+    db-kind: postgresql
+    username: register
+    password: register
+    jdbc:
+      url: jdbc:postgresql://localhost/register
+      driver: org.postgresql.Driver
+  hibernate-orm:
+    database:
+      generation: drop-and-create
