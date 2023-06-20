@@ -2,6 +2,9 @@ package com.github.mykeleony.domain.model;
 
 import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -9,6 +12,9 @@ import java.time.LocalDate;
 
 @Entity
 @Table(name = "restaurant")
+@Getter
+@Setter
+@ToString
 public class Restaurant extends PanacheEntityBase {
 
     @Id
@@ -19,7 +25,7 @@ public class Restaurant extends PanacheEntityBase {
     private String owner;
     private String cnpj;
     
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private Location location;
     
     @CreationTimestamp
