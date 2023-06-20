@@ -40,5 +40,11 @@ public class RestaurantController {
         
         return service.update(id, restaurant);
     }
+    
+    @DELETE
+    @Path("/{id}")
+    public void deleteById(@PathParam("id") Long id) {
+        service.deleteById(id);
+    }
 
 }
