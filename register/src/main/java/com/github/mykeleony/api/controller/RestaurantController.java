@@ -36,9 +36,9 @@ public class RestaurantController {
     @PUT
     @Path("/{id}")
     public Restaurant update(@PathParam("id") Long id, RestaurantInput restaurantInput) {
-        Restaurant restaurant = service.findById(id);
+        Restaurant restaurant = mapper.toEntity(restaurantInput);
         
-        return service.save(restaurant);
+        return service.update(id, restaurant);
     }
 
 }
