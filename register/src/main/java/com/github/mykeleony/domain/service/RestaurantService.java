@@ -49,4 +49,13 @@ public class RestaurantService {
         return existingRestaurant;
     }
     
+    @Transactional
+    public void deleteById(Long id) {
+        findById(id);
+        
+        log.info("Deleting restaurant with id {}", id);
+        
+        restaurantRepository.deleteById(id);
+    }
+    
 }
