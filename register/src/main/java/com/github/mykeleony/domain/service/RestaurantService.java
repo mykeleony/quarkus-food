@@ -31,7 +31,7 @@ public class RestaurantService {
     
     @Transactional
     public Restaurant save(Restaurant restaurant) {
-        log.info("Saving restaurant {}:", restaurant);
+        log.info("Saving restaurant {}:", restaurant.getName());
         
         restaurantRepository.persist(restaurant);
         
@@ -40,6 +40,8 @@ public class RestaurantService {
     
     @Transactional
     public Restaurant update(Long id, Restaurant restaurant) {
+        log.info("Updating restaurant {}:", restaurant.getName());
+        
         Restaurant existingRestaurant = findById(id);
         
         existingRestaurant.setName(restaurant.getName());
