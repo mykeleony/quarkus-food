@@ -38,4 +38,15 @@ public class RestaurantService {
         return restaurant;
     }
     
+    @Transactional
+    public Restaurant update(Long id, Restaurant restaurant) {
+        Restaurant existingRestaurant = findById(id);
+        
+        existingRestaurant.setName(restaurant.getName());
+        
+        restaurantRepository.persist(existingRestaurant);
+        
+        return existingRestaurant;
+    }
+    
 }
