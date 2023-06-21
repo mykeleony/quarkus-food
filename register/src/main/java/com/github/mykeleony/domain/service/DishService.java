@@ -20,6 +20,12 @@ public class DishService {
     public List<Dish> listAll() {
        return repository.listAll();
     }
+    
+    public List<Dish> listByRestaurant(Long restaurantId) {
+        Restaurant restaurant = restaurantService.findById(restaurantId);
+        
+        return repository.list("restaurant", restaurant);
+    }
 
     public Dish findById(Long id) {
         return repository.findByIdOptional(id).orElseThrow(NotFoundException::new);
