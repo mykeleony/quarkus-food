@@ -41,8 +41,8 @@ public class DishService {
     }
     
     @Transactional
-    public Dish update(Long id, Dish dish) {
-        Dish existentDish = findById(id);
+    public Dish update(Long restaurantId, Long dishId, Dish dish) {
+        Dish existentDish = findById(dishId);
         
         existentDish.setName(dish.getName());
         repository.persist(existentDish);
@@ -51,10 +51,11 @@ public class DishService {
     }
     
     @Transactional
-    public void deleteById(Long id) {
-        findById(id);
+    public void deleteById(Long restaurantId, Long dishId) {
+        restaurantService.findById(restaurantId);
+        findById(dishId);
         
-        repository.deleteById(id);
+        repository.deleteById(dishId);
     }
     
 }
