@@ -10,7 +10,7 @@ import lombok.AllArgsConstructor;
 
 import java.util.List;
 
-@Path("/{restaurantId}")
+@Path("/{restaurantId}/dishes")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 @AllArgsConstructor
@@ -29,6 +29,12 @@ public class DishController {
         Dish dish = mapper.toEntity(dishInput);
         
         return service.create(restaurantId, dish);
+    }
+    
+    @DELETE
+    @Path("/{dishId}")
+    public void deleteById(@PathParam("restaurantId") Long restaurantId, @PathParam("dishId") Long dishId) {
+        service.deleteById(restaurantId, dishId);
     }
     
 }
