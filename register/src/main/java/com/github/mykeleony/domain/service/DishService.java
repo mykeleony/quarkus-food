@@ -1,6 +1,7 @@
 package com.github.mykeleony.domain.service;
 
 import com.github.mykeleony.domain.model.Dish;
+import com.github.mykeleony.domain.model.Restaurant;
 import com.github.mykeleony.domain.repository.DishRepository;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.transaction.Transactional;
@@ -14,6 +15,7 @@ import java.util.List;
 public class DishService {
     
     private DishRepository repository;
+    private RestaurantService restaurantService;
     
     public List<Dish> listAll() {
        return repository.listAll();
@@ -24,7 +26,9 @@ public class DishService {
     }
     
     @Transactional
-    public Dish create(Dish dish) {
+    public Dish create(Long restaurantId, Dish dish) {
+        dish.setRestaurant(restaurantService.findById(restaurantId));
+        
         repository.persist(dish);
         
         return dish;
