@@ -16,4 +16,8 @@ public class DishMapper {
         return mapper.map(dishInput, Dish.class);
     }
     
+    public void modifyEntityFields(DishInput dishInput, Dish dish) {
+        mapper.map(dishInput, dish);
+    }
+    
 }
