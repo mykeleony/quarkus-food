@@ -31,6 +31,16 @@ public class DishController {
         return service.create(restaurantId, dish);
     }
     
+    @PUT
+    @Path("/{dishId}")
+    public Dish update(@PathParam("restaurantId") Long restaurantId, @PathParam("dishId") Long dishId, DishInput dishInput) {
+        Dish dish = service.findById(restaurantId, dishId);
+        
+        mapper.modifyEntityFields(dishInput, dish);
+        
+        return dish;
+    }
+    
     @DELETE
     @Path("/{dishId}")
     public void deleteById(@PathParam("restaurantId") Long restaurantId, @PathParam("dishId") Long dishId) {
