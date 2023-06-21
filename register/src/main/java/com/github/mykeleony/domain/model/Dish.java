@@ -9,18 +9,19 @@ import java.math.BigDecimal;
 
 @Entity
 @Table(name = "dish")
+@IdClass(DishId.class)
 @Getter
 @Setter
 public class Dish extends PanacheEntityBase {
     
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
     private String name;
     private String description;
     private BigDecimal unitPrice;
     
+    @Id
     @ManyToOne
     @JoinColumn(name = "restaurant_id")
     private Restaurant restaurant;
