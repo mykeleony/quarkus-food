@@ -1,6 +1,7 @@
 package com.github.mykeleony.domain.service;
 
 import com.github.mykeleony.domain.model.Dish;
+import com.github.mykeleony.domain.model.DishId;
 import com.github.mykeleony.domain.model.Restaurant;
 import com.github.mykeleony.domain.repository.DishRepository;
 import jakarta.enterprise.context.ApplicationScoped;
@@ -27,7 +28,9 @@ public class DishService {
         return repository.list("restaurant", restaurant);
     }
 
-    public Dish findById(Long id) {
+    public Dish findById(Long restaurantId, Long dishId) {
+        DishId id = new DishId(dishId, restaurantService.findById(restaurantId));
+        
         return repository.findByIdOptional(id).orElseThrow(NotFoundException::new);
     }
     
@@ -45,7 +48,7 @@ public class DishService {
     
     @Transactional
     public Dish update(Long restaurantId, Long dishId, Dish dish) {
-        Dish existentDish = findById(dishId);
+        Dish existentDish = findById(restaurantId, dishId);
         
         existentDish.setName(dish.getName());
         repository.persist(existentDish);
@@ -55,10 +58,7 @@ public class DishService {
     
     @Transactional
     public void deleteById(Long restaurantId, Long dishId) {
-        restaurantService.findById(restaurantId);
-        findById(dishId);
-        
-        repository.deleteById(dishId);
+        repository.delete(findById(restaurantId, dishId));
     }
     
 }
