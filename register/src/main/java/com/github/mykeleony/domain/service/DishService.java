@@ -33,7 +33,10 @@ public class DishService {
     
     @Transactional
     public Dish create(Long restaurantId, Dish dish) {
-        dish.setRestaurant(restaurantService.findById(restaurantId));
+        Restaurant restaurant = restaurantService.findById(restaurantId);
+        
+        dish.setRestaurant(restaurant);
+        dish.setId(repository.countByRestaurant(restaurant) + 1L);
         
         repository.persist(dish);
         
