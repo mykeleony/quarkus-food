@@ -2,9 +2,9 @@ package com.github.mykeleony.domain.model;
 
 import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -14,7 +14,8 @@ import java.time.LocalDate;
 @Table(name = "restaurant")
 @Getter
 @Setter
-@ToString
+@AllArgsConstructor
+@NoArgsConstructor
 public class Restaurant extends PanacheEntityBase {
 
     @Id
@@ -33,5 +34,27 @@ public class Restaurant extends PanacheEntityBase {
     
     @UpdateTimestamp
     private LocalDate updateDate;
-
+    
+    public Restaurant(String name, String owner, String cnpj, Location location, LocalDate creationDate, LocalDate updateDate) {
+        this.name = name;
+        this.owner = owner;
+        this.cnpj = cnpj;
+        this.location = location;
+        this.creationDate = creationDate;
+        this.updateDate = updateDate;
+    }
+    
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        
+        if (!(o instanceof Restaurant that)) return false;
+        
+        return new EqualsBuilder().append(getId(), that.getId()).isEquals();
+    }
+    
+    @Override
+    public int hashCode() {
+        return new HashCodeBuilder(17, 37).append(getId()).toHashCode();
+    }
 }
