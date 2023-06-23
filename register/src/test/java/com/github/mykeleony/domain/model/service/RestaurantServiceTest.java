@@ -12,11 +12,11 @@ import org.junit.jupiter.api.Test;
 import java.util.List;
 import java.util.Optional;
 
-import static com.github.mykeleony.common.RestaurantConstants.RESTAURANT;
-import static com.github.mykeleony.common.RestaurantConstants.RESTAURANTS;
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static com.github.mykeleony.common.RestaurantConstants.*;
+import static org.assertj.core.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.when;
 
 @QuarkusTest
@@ -63,6 +63,20 @@ public class RestaurantServiceTest {
     @Test
     public void findRestaurant_WithNonexistentId_ThrowsException() {
         assertThatThrownBy(() -> service.findById(99L)).isInstanceOf(NotFoundException.class);
+    }
+    
+    @Test
+    public void createRestaurant_WithInvalidData_ThrowsException() {
+        doThrow(new RuntimeException()).when(repository).persist(INVALID_RESTAURANT);
+        
+        assertThatThrownBy(() -> service.save(INVALID_RESTAURANT)).isInstanceOf(RuntimeException.class);
+    }
+    
+    @Test
+    public void createRestaurant_WithValidData_ReturnsCreatedRestaurant() {
+        assertThatCode(() -> repository.persist(RESTAURANT)).doesNotThrowAnyException();
+        
+        assertThat(service.save(RESTAURANT)).isEqualTo(RESTAURANT);
     }
     
 }
