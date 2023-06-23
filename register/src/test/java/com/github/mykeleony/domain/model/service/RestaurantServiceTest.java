@@ -14,8 +14,7 @@ import java.util.Optional;
 
 import static com.github.mykeleony.common.RestaurantConstants.*;
 import static org.assertj.core.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.when;
 
@@ -77,6 +76,20 @@ public class RestaurantServiceTest {
         assertThatCode(() -> repository.persist(RESTAURANT)).doesNotThrowAnyException();
         
         assertThat(service.save(RESTAURANT)).isEqualTo(RESTAURANT);
+    }
+    
+    @Test
+    public void deleteRestaurant_WithExistentId_DoesNotThrowException() {
+        when(repository.findByIdOptional(anyLong())).thenReturn(Optional.of(RESTAURANT));
+        
+        assertThatCode(() -> service.deleteById(1L)).doesNotThrowAnyException();
+    }
+    
+    @Test
+    public void deleteRestaurant_WithNonexistentId_ThrowsException() {
+        when(repository.findByIdOptional(99L)).thenReturn(Optional.empty());
+        
+        assertThatThrownBy(() -> service.deleteById(99L)).isInstanceOf(NotFoundException.class);
     }
     
 }
