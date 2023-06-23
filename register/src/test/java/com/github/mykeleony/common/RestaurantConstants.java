@@ -15,6 +15,8 @@ public class RestaurantConstants {
     
     public static final Restaurant RESTAURANT = new Restaurant("restaurant", "owner", "55.351.632/0001-91", LOCATION, DATE, DATE);
     
+    public static final Restaurant INVALID_RESTAURANT = new Restaurant("", "", "", null, null, null);
+    
     public static final List<Restaurant> RESTAURANTS = new ArrayList<>() {
         {
             int restaurantsAmount = 3;
