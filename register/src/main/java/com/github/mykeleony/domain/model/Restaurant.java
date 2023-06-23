@@ -27,12 +27,15 @@ public class Restaurant extends PanacheEntityBase {
     private String cnpj;
     
     @OneToOne(cascade = CascadeType.ALL)
+    @PrimaryKeyJoinColumn(name = "location_id")
     private Location location;
     
     @CreationTimestamp
+    @Column(name = "creation_date")
     private LocalDate creationDate;
     
     @UpdateTimestamp
+    @Column(name = "update_date")
     private LocalDate updateDate;
     
     public Restaurant(String name, String owner, String cnpj, Location location, LocalDate creationDate, LocalDate updateDate) {
