@@ -18,7 +18,10 @@ public class Location extends PanacheEntityBase {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
+    @Column(nullable = false, scale = 2)
     private Double latitude;
+    
+    @Column(nullable = false, scale = 2)
     private Double longitude;
     
     public Location(Double latitude, Double longitude) {

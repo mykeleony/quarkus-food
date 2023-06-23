@@ -22,8 +22,13 @@ public class Restaurant extends PanacheEntityBase {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
+    @Column(nullable = false)
     private String name;
+    
+    @Column(nullable = false)
     private String owner;
+    
+    @Column(nullable = false, unique = true)
     private String cnpj;
     
     @OneToOne(cascade = CascadeType.ALL)
