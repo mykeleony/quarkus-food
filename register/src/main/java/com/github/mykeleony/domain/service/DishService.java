@@ -47,16 +47,6 @@ public class DishService {
     }
     
     @Transactional
-    public Dish update(Long restaurantId, Long dishId, Dish dish) {
-        Dish existentDish = findById(restaurantId, dishId);
-        
-        existentDish.setName(dish.getName());
-        repository.persist(existentDish);
-        
-        return existentDish;
-    }
-    
-    @Transactional
     public void deleteById(Long restaurantId, Long dishId) {
         repository.delete(findById(restaurantId, dishId));
     }

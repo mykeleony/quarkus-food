@@ -4,6 +4,7 @@ import com.github.mykeleony.api.mapper.RestaurantMapper;
 import com.github.mykeleony.api.model.RestaurantInput;
 import com.github.mykeleony.domain.model.Restaurant;
 import com.github.mykeleony.domain.service.RestaurantService;
+import jakarta.transaction.Transactional;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import lombok.AllArgsConstructor;
@@ -39,12 +40,14 @@ public class RestaurantController {
     
     @PUT
     @Path("/{id}")
+    @Transactional
     public Restaurant update(@PathParam("id") Long id, RestaurantInput restaurantInput) {
         log.info("Received request to update restaurant {}", restaurantInput.getName());
         
-        Restaurant restaurant = mapper.toEntity(restaurantInput);
+        Restaurant restaurant = service.findById(id);
+        mapper.modifyEntityFields(restaurantInput, restaurant);
         
-        return service.update(id, restaurant);
+        return restaurant;
     }
     
     @DELETE

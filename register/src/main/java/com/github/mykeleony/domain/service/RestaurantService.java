@@ -39,19 +39,6 @@ public class RestaurantService {
     }
     
     @Transactional
-    public Restaurant update(Long id, Restaurant restaurant) {
-        log.info("Updating restaurant {}:", restaurant.getName());
-        
-        Restaurant existingRestaurant = findById(id);
-        
-        existingRestaurant.setName(restaurant.getName());
-        
-        restaurantRepository.persist(existingRestaurant);
-        
-        return existingRestaurant;
-    }
-    
-    @Transactional
     public void deleteById(Long id) {
         findById(id);
         

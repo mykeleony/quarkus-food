@@ -4,6 +4,7 @@ import com.github.mykeleony.api.mapper.DishMapper;
 import com.github.mykeleony.api.model.DishInput;
 import com.github.mykeleony.domain.model.Dish;
 import com.github.mykeleony.domain.service.DishService;
+import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
@@ -34,6 +35,7 @@ public class DishController {
     
     @PUT
     @Path("/{dishId}")
+    @Transactional
     public Dish update(@PathParam("restaurantId") Long restaurantId, @PathParam("dishId") Long dishId, @Valid DishInput dishInput) {
         Dish dish = service.findById(restaurantId, dishId);
         
