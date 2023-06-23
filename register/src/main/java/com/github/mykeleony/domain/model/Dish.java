@@ -21,8 +21,12 @@ public class Dish extends PanacheEntityBase {
     @Id
     private Long id;
     
+    @Column(nullable = false)
     private String name;
+    
     private String description;
+    
+    @Column(nullable = false, precision = 10, scale = 2)
     private BigDecimal unitPrice;
     
     @Id
