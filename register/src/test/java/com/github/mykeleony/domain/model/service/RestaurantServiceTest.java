@@ -28,7 +28,7 @@ public class RestaurantServiceTest {
     public RestaurantRepository repository;
     
     @Test
-    public void listRestaurants_ReturnsAllRestaurants() {
+    public void listRestaurants_withRegisteredRestaurants_ReturnsAllRestaurants() {
         when(repository.listAll()).thenReturn(RESTAURANTS);
         
         List<Restaurant> sut = service.listAll();
@@ -37,6 +37,11 @@ public class RestaurantServiceTest {
                 .isNotNull()
                 .hasSize(RESTAURANTS.size());
         assertThat(sut.get(0)).isEqualTo(RESTAURANT);
+    }
+    
+    @Test
+    public void listRestaurants_withoutRegisteredRestaurants_ReturnsEmpty() {
+        assertThat(service.listAll()).isEmpty();
     }
     
 }
