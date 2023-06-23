@@ -12,12 +12,16 @@ import org.modelmapper.ModelMapper;
 @Slf4j
 public class RestaurantMapper {
     
-    private ModelMapper modelMapper;
+    private ModelMapper mapper;
     
     public Restaurant toEntity(RestaurantInput restaurantInput) {
         log.info("Mapping restaurant's {} input model to entity", restaurantInput.getName());
         
-        return modelMapper.map(restaurantInput, Restaurant.class);
+        return mapper.map(restaurantInput, Restaurant.class);
+    }
+    
+    public void modifyEntityFields(RestaurantInput restaurantInput, Restaurant restaurant) {
+        mapper.map(restaurantInput, restaurant);
     }
     
 }
